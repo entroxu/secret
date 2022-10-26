@@ -104,14 +104,14 @@ NIST定义了五种工作模式：
 
 Java原生支持的Padding(Cipher)汇总如下：
 
-|填充模式| 描述                                                                                                         |
-|---|------------------------------------------------------------------------------------------------------------|
-|NoPadding| 不采用填充模式                                                                                                    |
-|ISO10126Padding| XML加密语法和处理文档中有详细描述                                                                                         |
+|填充模式| 描述                                                                                   |
+|---|--------------------------------------------------------------------------------------------|
+|NoPadding        | 不采用填充模式                                                                |
+|ISO10126Padding  | XML加密语法和处理文档中有详细描述                                               |
 |OAEPPadding, OAEPWith<digest>And<mgf>Padding| PKCS1中定义的最优非对称加密填充方案，digest代表消息摘要类型，mgf代表掩码生成函数，例：OAEPWithMD5AndMGF1Padding或者OAEPWithSHA-512AndMGF1Padding |
-|PKCS1Padding| 	PKCS1，RSA算法使用                                                                                             |                
-|PKCS5Padding| 	PKCS5，RSA算法使用                                                                                             |               
-|SSL3Padding| 	见SSL Protocol Version 3.0的定义                                                                              | 
+|PKCS1Padding     | 	PKCS1，RSA算法使用                                                           |                
+|PKCS5Padding     | 	PKCS5，RSA算法使用                                                           |               
+|SSL3Padding      | 	见SSL Protocol Version 3.0的定义                                             | 
 
 [^1]:针对RSA最流行的攻击一般是基于大数因数分解。1999年，RSA-155（512 bits）被成功分解，花了五个月时间（约8000 MIPS年）和224 CPU
 hours在一台有3.2G中央内存的Cray C916计算机上完成。
