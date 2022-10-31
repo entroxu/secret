@@ -18,6 +18,13 @@ import java.security.spec.X509EncodedKeySpec;
 public class RSAUtil {
     public static final String RSA_ALGORITHM="RSA";
 
+    //签名串有长度限制
+    //public static final String SIGN_ALGORITHM="NONEwithRSA";
+    public static final String SIGN_ALGORITHM="MD5withRSA";
+    //RSA/ECB/OAEPWithMD5AndMGF1Padding 模式  最长原始长度94
+    public static final String TRANSFORMATION="RSA/ECB/OAEPWithMD5AndMGF1Padding";
+
+
     public static KeyPair generator() throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA_ALGORITHM);
         keyPairGenerator.initialize(1024);
@@ -44,15 +51,28 @@ public class RSAUtil {
 
     public static byte[] encrypt(PublicKey publicKey,byte[] message) throws NoSuchPaddingException,
             NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
         cipher.init(Cipher.ENCRYPT_MODE,publicKey);
         return cipher.doFinal(message);
     }
     public static byte[] decrypt(PrivateKey privateKey,byte[] secret) throws NoSuchPaddingException,
             NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        Cipher cipher = Cipher.getInstance(RSA_ALGORITHM);
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
         cipher.init(Cipher.DECRYPT_MODE,privateKey);
         return cipher.doFinal(secret);
+    }
+
+    public static byte[] sign(PrivateKey privateKey,byte[] message) throws InvalidKeyException, SignatureException, NoSuchAlgorithmException {
+        Signature signature = Signature.getInstance(SIGN_ALGORITHM);
+        signature.initSign(privateKey);
+        signature.update(message);
+        return signature.sign();
+    }
+    public static boolean signVerify(PublicKey publicKey,byte[] message,byte[] digitalSignature) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, NoSuchProviderException {
+        Signature signature = Signature.getInstance(SIGN_ALGORITHM);
+        signature.initVerify(publicKey);
+        signature.update(message);
+        return signature.verify(digitalSignature);
     }
 
 }
