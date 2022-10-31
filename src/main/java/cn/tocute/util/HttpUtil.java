@@ -78,7 +78,7 @@ public class HttpUtil {
             headerList = new ArrayList<>();
         }
         headerList.add(new BasicHeader(HttpConstant.USER_AGENT, userAgent));
-        headerList.add(new BasicHeader(Constant.TRACE_ID, MDC.get(Constant.TRACE_ID)));
+        //headerList.add(new BasicHeader(Constant.TRACE_ID, MDC.get(Constant.TRACE_ID)));
         Header[] headers = headerList.toArray(new Header[0]);
 
         httppost.setHeaders(headers);

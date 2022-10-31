@@ -15,7 +15,7 @@ import java.security.spec.X509EncodedKeySpec;
  * 私钥byte[]编码是：PKCS8EncodedKeySpec
  * 密钥和私钥要存为string必须使用base64编码byte[],不能直接转为string因为byte[]中可能有字符
  */
-public class RSAUtil {
+public class SecretUtil {
     public static final String RSA_ALGORITHM="RSA";
 
     //签名串有长度限制
