@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+group 'cn.tocute'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
+    /**
+     * logback的三个模块
+     * logback-core：其它两个模块的基础模块
+     * logback-classic：它是log4j的一个改良版本，同时它完整实现了slf4j API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging
+     * logback-access：访问模块与Servlet容器集成提供通过Http来访问日志的功能
+     */
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.4'
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.4.4'
+
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+
+
+/*
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation group: 'com.alibaba', name: 'fastjson', version: '2.0.17'
+
+*/
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
