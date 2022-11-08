@@ -113,8 +113,13 @@ Java原生支持的Padding(Cipher)汇总如下：
 |PKCS5Padding     | 	PKCS5，RSA算法使用                                                           |               
 |SSL3Padding      | 	见SSL Protocol Version 3.0的定义                                             | 
 
+
+Java标准库支持的所有哈希算法（针对加密MessageDigest、签名Signature等类支持的算法种类名称）可以在这里[^4]查到.
+
+
 [^1]:针对RSA最流行的攻击一般是基于大数因数分解。1999年，RSA-155（512 bits）被成功分解，花了五个月时间（约8000 MIPS年）和224 CPU
 hours在一台有3.2G中央内存的Cray C916计算机上完成。
 2009年12月12日，编号为RSA-768（768 bits, 232 digits）数也被成功分解。这一事件威胁了现通行的1024-bit密钥的安全性，普遍认为用户应尽快升级到2048-bit或以上。
 [^2]:实际算法更为复杂，这里只是讲基础原理
 [^3]:参考 https://www.cnblogs.com/throwable/p/9480540.html
+[^4]:Java标准库支持的所有哈希算法 https://docs.oracle.com/en/java/javase/14/docs/specs/security/standard-names.html#messagedigest-algorithms

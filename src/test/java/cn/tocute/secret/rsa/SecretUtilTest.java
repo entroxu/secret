@@ -1,6 +1,6 @@
 package cn.tocute.secret.rsa;
 
-import org.junit.jupiter.api.AfterAll;
+import cn.tocute.secret.rsa.helper.KeyPairGeneratorAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -10,13 +10,17 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
 import java.util.Base64;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SecretUtilTest {
+
+    public static final String RSA_ALGORITHM="RSA";
+
+    //签名串有长度限制
+    //public static final String SIGN_ALGORITHM="NONEwithRSA";
+    public static final String SIGN_ALGORITHM="MD5withRSA";
+    //RSA/ECB/OAEPWithMD5AndMGF1Padding 模式  最长原始长度94
+    public static final String TRANSFORMATION="RSA/ECB/OAEPWithMD5AndMGF1Padding";
 
     @BeforeEach
     void setUp() {
@@ -68,7 +72,7 @@ class SecretUtilTest {
     void signOther() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 
 
-        KeyPair keyPair = SecretUtil.generator();
+        KeyPair keyPair = SecretUtil.generator(KeyPairGeneratorAlgorithm.RSA);
         PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
 
@@ -87,14 +91,14 @@ class SecretUtilTest {
             byte[] messageByte = tem.getBytes(StandardCharsets.UTF_8);
             System.out.println("1.长度：" + tem.length() + " 原文：" + tem);
 
-            byte[] sign = SecretUtil.sign(privateKey, messageByte);
-            boolean signSuccess = SecretUtil.signVerify(publicKey, messageByte, sign);
+            byte[] sign = SecretUtil.sign(SIGN_ALGORITHM,privateKey, messageByte);
+            boolean signSuccess = SecretUtil.signVerify(SIGN_ALGORITHM,publicKey, messageByte, sign);
             System.out.println("\r2.验证签名:" + signSuccess);
             System.out.println("\r3.签名:" + Base64.getEncoder().encodeToString(sign));
 
 
-            byte[] secret = SecretUtil.encrypt(publicKey, messageByte);
-            byte[] message = SecretUtil.decrypt(privateKey, secret);
+            byte[] secret = SecretUtil.encrypt(RSA_ALGORITHM,publicKey, messageByte);
+            byte[] message = SecretUtil.decrypt(RSA_ALGORITHM,privateKey, secret);
             System.out.println("\r4.密文：" + new String(Base64.getEncoder().encode(secret), StandardCharsets.UTF_8));
             System.out.println("\r5.解密文：" + new String(message, StandardCharsets.UTF_8));
 
