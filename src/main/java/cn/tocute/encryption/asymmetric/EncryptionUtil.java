@@ -1,6 +1,6 @@
-package cn.tocute.secret.rsa;
+package cn.tocute.encryption.asymmetric;
 
-import cn.tocute.secret.rsa.helper.KeyPairGeneratorAlgorithm;
+import cn.tocute.secret.asymmetric.helper.KeyPairGeneratorAlgorithm;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -17,7 +17,7 @@ import java.security.spec.X509EncodedKeySpec;
  * 私钥byte[]编码是：PKCS8EncodedKeySpec
  * 密钥和私钥要存为string必须使用base64编码byte[],不能直接转为string因为byte[]中可能有非String类字符
  */
-public class SecretUtil {
+public class EncryptionUtil {
 
     public static KeyPair generator(KeyPairGeneratorAlgorithm algorithms) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(algorithms.getName());

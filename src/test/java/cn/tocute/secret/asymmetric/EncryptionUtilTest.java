@@ -1,6 +1,7 @@
-package cn.tocute.secret.rsa;
+package cn.tocute.secret.asymmetric;
 
-import cn.tocute.secret.rsa.helper.KeyPairGeneratorAlgorithm;
+import cn.tocute.encryption.asymmetric.EncryptionUtil;
+import cn.tocute.secret.asymmetric.helper.KeyPairGeneratorAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
 
-class SecretUtilTest {
+class EncryptionUtilTest {
 
     public static final String RSA_ALGORITHM="RSA";
 
@@ -72,7 +73,7 @@ class SecretUtilTest {
     void signOther() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 
 
-        KeyPair keyPair = SecretUtil.generator(KeyPairGeneratorAlgorithm.RSA);
+        KeyPair keyPair = EncryptionUtil.generator(KeyPairGeneratorAlgorithm.RSA);
         PrivateKey privateKey = keyPair.getPrivate();
         PublicKey publicKey = keyPair.getPublic();
 
@@ -91,14 +92,14 @@ class SecretUtilTest {
             byte[] messageByte = tem.getBytes(StandardCharsets.UTF_8);
             System.out.println("1.长度：" + tem.length() + " 原文：" + tem);
 
-            byte[] sign = SecretUtil.sign(SIGN_ALGORITHM,privateKey, messageByte);
-            boolean signSuccess = SecretUtil.signVerify(SIGN_ALGORITHM,publicKey, messageByte, sign);
+            byte[] sign = EncryptionUtil.sign(SIGN_ALGORITHM,privateKey, messageByte);
+            boolean signSuccess = EncryptionUtil.signVerify(SIGN_ALGORITHM,publicKey, messageByte, sign);
             System.out.println("\r2.验证签名:" + signSuccess);
             System.out.println("\r3.签名:" + Base64.getEncoder().encodeToString(sign));
 
 
-            byte[] secret = SecretUtil.encrypt(RSA_ALGORITHM,publicKey, messageByte);
-            byte[] message = SecretUtil.decrypt(RSA_ALGORITHM,privateKey, secret);
+            byte[] secret = EncryptionUtil.encrypt(RSA_ALGORITHM,publicKey, messageByte);
+            byte[] message = EncryptionUtil.decrypt(RSA_ALGORITHM,privateKey, secret);
             System.out.println("\r4.密文：" + new String(Base64.getEncoder().encode(secret), StandardCharsets.UTF_8));
             System.out.println("\r5.解密文：" + new String(message, StandardCharsets.UTF_8));
 

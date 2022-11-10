@@ -1,4 +1,4 @@
-package cn.tocute.secret.rsa.helper;
+package cn.tocute.secret.asymmetric.helper;
 
 public enum KeyPairGeneratorAlgorithm {
     DiffieHellman("DiffieHellman"),
