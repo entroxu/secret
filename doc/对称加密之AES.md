@@ -138,6 +138,26 @@ Java原生支持的Padding(Cipher)汇总如下：
 
 Java标准库支持的所有哈希算法（针对加密MessageDigest、签名Signature等类支持的算法种类名称）可以在这里[^4]查到.
 
+##### Cipher操作模式
+operation mode of Cipher 有四种操作模式：ENCRYPT_MODE, DECRYPT_MODE, WRAP_MODE or UNWRAP_MODE
+
+分别是加密，解密，密钥包装及密钥解包
+
+后两种模式专门用来处理对密钥的加解密，相对于前两种，是一种功能增强
+
+在 flylib.com中介绍了具体的主要区别[^5]：
+
+1. 不需要转换密钥的二进制数据,直接对Key对象进行加解密
+2. 一些提供商会把密钥直接存储在安全硬件上，进而加强安全.
+3. 一些基于硬件加密的密钥类型不支持编码(getEncoded()==null:   返回基本编码格式的密钥，如果此密钥不支持编码，则返回 null。)[^6]
+`
+
+`
+Cipher初始化模式有四种：
+"The first is simple convenience ”you do not have to extract the key's data; to wrap it, you just call Cipher.wrap() and the key is extracted for you and returned as an encrypted byte array. 
+The second reason is that some providers will store the actual key material on hardware devices where it is safe from prying eyes;"[^5]
+
+
 
 [^1]:针对RSA最流行的攻击一般是基于大数因数分解。1999年，RSA-155（512 bits）被成功分解，花了五个月时间（约8000 MIPS年）和224 CPU
 hours在一台有3.2G中央内存的Cray C916计算机上完成。
@@ -145,3 +165,5 @@ hours在一台有3.2G中央内存的Cray C916计算机上完成。
 [^2]:实际算法更为复杂，这里只是讲基础原理
 [^3]:参考 https://www.cnblogs.com/throwable/p/9480540.html
 [^4]:Java标准库支持的所有哈希算法 https://docs.oracle.com/en/java/javase/14/docs/specs/security/standard-names.html#messagedigest-algorithms
+[^5]:https://flylib.com/books/en/1.274.1/symmetric_key_cryptography.html#fastmenu_23
+[^6]:例如基于硬件加密的 AndroidKeyStore 的私钥不允许发布：https://stackoverflow.com/questions/42348944/calling-getencoded-on-secretkey-returns-null

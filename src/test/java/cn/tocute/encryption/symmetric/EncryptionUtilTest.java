@@ -106,4 +106,8 @@ class EncryptionUtilTest {
         System.out.println("解密：" + new String(decrypted,StandardCharsets.UTF_8));
     }
 
+    @Test
+    @Order(5)
+    public void test(){}
+
 }

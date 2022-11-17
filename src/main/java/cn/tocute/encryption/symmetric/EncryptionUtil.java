@@ -30,7 +30,7 @@ public class EncryptionUtil {
     }
     public static SecretKey getKey(String algorithm,String keyString){
         byte[] keyByte = Base64.getDecoder().decode(keyString);
-        return new SecretKeySpec(keyString.getBytes(StandardCharsets.UTF_8),algorithm);
+        return new SecretKeySpec(keyByte,algorithm);
     }
 
 

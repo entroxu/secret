@@ -56,6 +56,43 @@ public class EncryptionUtil {
         return cipher.doFinal(secret);
     }
 
+    /**密钥本身的强度及加密密钥的密钥的强度对整提安全的保证是木桶效应
+     *
+     * @param transformation
+     * @param key
+     * @return
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeyException
+     * @throws IllegalBlockSizeException
+     * @throws BadPaddingException
+     */
+    public static byte[] warp(String transformation,Key key,Key toWarpKey) throws NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException {
+        Cipher cipher = Cipher.getInstance(transformation);
+        cipher.init(Cipher.WRAP_MODE,key);
+        return cipher.wrap(toWarpKey);
+    }
+
+    /**
+     *
+     * @param transformation
+     * @param wrappedKey
+     * @param keyType :  Cipher.PUBLIC_KEY = 1;PRIVATE_KEY = 2; SECRET_KEY = 3;
+     * @return
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
+     * @throws IllegalBlockSizeException
+     * @throws BadPaddingException
+     * @throws InvalidKeyException
+     */
+    public static Key unWarp(String transformation,String wrappedKeyAlgorithm,Key key,byte[] wrappedKey,int keyType) throws NoSuchPaddingException,
+            NoSuchAlgorithmException, InvalidKeyException {
+        Cipher cipher = Cipher.getInstance(transformation);
+        cipher.init(Cipher.UNWRAP_MODE,key);
+        return cipher.unwrap(wrappedKey,wrappedKeyAlgorithm,keyType);
+    }
+
     public static byte[] sign(String algorithm,PrivateKey privateKey,byte[] message) throws InvalidKeyException, SignatureException, NoSuchAlgorithmException {
         Signature signature = Signature.getInstance(algorithm);
         signature.initSign(privateKey);
