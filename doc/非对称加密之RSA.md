@@ -100,7 +100,7 @@ NIST定义了五种工作模式：
 |输出反馈(OFB)	| Output FeedBack| 	与CFB类似，只是加密算法的输入是上一次加密的输出，并且使用整个分组| 	噪声信道上的数据流的传输(如卫星通信) |
 |计数器(CTR)	| Counter| 	每个明文分组都与一个经过加密的计数器相异或。对每个后续分组计数器递增| 面向分组的通用传输或者用于高速需求    |
 
-ECB对相同块的密文是一样的，被认为不太安全，例如一幅企鹅位图使用ECB加密后仍能看到大概轮廓[^4]
+ECB对相同块的密文是一样的[^4]，当密文被篡改时，解密后对应的明文分组也会出错，且解密者察觉不到密文被篡改了。也就是说，ECB不能提供对密文的完整性校验。
 
 ###### 3.填充模式
 
@@ -126,5 +126,5 @@ hours在一台有3.2G中央内存的Cray C916计算机上完成。
 2009年12月12日，编号为RSA-768（768 bits, 232 digits）数也被成功分解。这一事件威胁了现通行的1024-bit密钥的安全性，普遍认为用户应尽快升级到2048-bit或以上。
 [^2]:实际算法更为复杂，这里只是讲基础原理
 [^3]:参考 https://www.cnblogs.com/throwable/p/9480540.html
-[^4]:参考：https://zh.m.wikipedia.org/zh-hans/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F#%E7%94%B5%E5%AD%90%E5%AF%86%E7%A0%81%E6%9C%AC%EF%BC%88ECB%EF%BC%89
+[^4]:参考：一幅企鹅位图使用ECB加密后仍能看到大概轮廓 https://zh.m.wikipedia.org/zh-hans/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F#%E7%94%B5%E5%AD%90%E5%AF%86%E7%A0%81%E6%9C%AC%EF%BC%88ECB%EF%BC%89
 [^5]:Java标准库支持的所有哈希算法 https://docs.oracle.com/en/java/javase/14/docs/specs/security/standard-names.html#messagedigest-algorithms
